@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaPaperPlane } from "r
 
 export default function Footer() {
   return (
-    <footer className="relative lg:h-[620px] overflow-hidden bg-[#131A2A] text-white">
+    <footer className="relative lg:h-[620px] lg:px-[100px] overflow-hidden bg-[#131A2A] text-white">
       {/* Backgroundimage */}
       <img
         src="/images/footer/footer-bg.png"
@@ -12,8 +12,6 @@ export default function Footer() {
       />
 
       <div className="relative mx-auto max-w-[1612px] px-6 pt-12 lg:pt-[74px] pb-24 lg:pb-0">
-        
-        {/* Top Header Section */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-0">
           <Link href="/">
             <img src="/images/footer/logo.png" alt="Ekobyte" className="h-[40px] w-auto" />
@@ -38,35 +36,21 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        {/* Divider */}
         <div className="mt-8 lg:mt-[34px] h-px w-full bg-white/20" />
-
-        {/* Main Grid Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.1fr_0.68fr_0.68fr_1fr] gap-12 lg:gap-[86px] pt-10 lg:pt-[70px]">
-          
-          {/* Recent Blog */}
           <div>
             <h3 className="mb-6 lg:mb-[40px] text-[22px] lg:text-[24px] font-bold leading-none">
               Recent Blog
             </h3>
-
             <a href="#" className="mb-[18px] flex gap-[20px] group">
-              <img
-                src="/images/footer/blog-1.jpg"
-                alt="blog"
-                className="h-[78px] w-[78px] rounded-[16px] object-cover"
-              />
+              <img src="/images/footer/blog-1.jpg" alt="blog" className="h-[78px] w-[78px] rounded-[16px] object-cover"/>
               <div className="pt-[2px]">
-                <p className="mb-[10px] text-[14px] lg:text-[15px] font-medium leading-none text-gray-300">
-                  January 11, 2023
-                </p>
+                <p className="mb-[10px] text-[14px] lg:text-[15px] font-medium leading-none text-gray-300">January 11, 2023</p>
                 <h4 className="max-w-[245px] text-[17px] lg:text-[19px] font-semibold leading-[1.4] group-hover:text-[#E7F914] transition-colors">
                   How To Impact Robot AI In The Future
                 </h4>
               </div>
             </a>
-
             <a href="#" className="flex gap-[20px] group">
               <img
                 src="/images/footer/blog-2.jpg"
@@ -83,8 +67,6 @@ export default function Footer() {
               </div>
             </a>
           </div>
-
-          {/* Our Services */}
           <div>
             <h3 className="mb-6 lg:mb-[36px] text-[22px] lg:text-[24px] font-bold leading-none">
               Our Services
@@ -97,8 +79,6 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
-          {/* Quick Links */}
           <div>
             <h3 className="mb-6 lg:mb-[36px] text-[22px] lg:text-[24px] font-bold leading-none">
               Get Free Link
@@ -111,8 +91,6 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
-          {/* Newsletter */}
           <div>
             <h3 className="mb-6 lg:mb-[39px] text-[22px] lg:text-[24px] font-bold leading-none">
               Newsletter
@@ -130,7 +108,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="flex h-[48px] w-[48px] lg:h-[56px] lg:w-[56px] shrink-0 items-center justify-center rounded-full bg-[#DFFF00] hover:bg-white transition-colors"
+                className="flex absolute right-7 h-[48px] w-[48px] lg:h-[56px] lg:w-[56px] shrink-0 items-center justify-center rounded-full bg-[#DFFF00] hover:bg-white transition-colors"
               >
                 <FaPaperPlane color="#131A2A" />
               </button>
@@ -138,14 +116,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Bottom Footer Bar */}
       <div className="absolute bottom-0 left-0 w-full border-t border-white/20 bg-[#131A2A]/80 backdrop-blur-sm">
         <div className="mx-auto flex flex-col md:flex-row min-h-[62px] max-w-[1612px] items-center justify-between px-6 py-4 md:py-0 gap-4 text-center md:text-left">
           <p className="text-[15px] lg:text-[19px] font-semibold leading-none">
             © Ekobyte 2025 | All Rights Reserved
           </p>
-
           <div className="flex flex-wrap justify-center items-center gap-[15px] lg:gap-[24px]">
             <a href="#" className="text-[15px] lg:text-[19px] font-semibold leading-none hover:text-[#E7F914] transition-colors">
               Terms & Condition
