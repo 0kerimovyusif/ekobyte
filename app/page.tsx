@@ -4,6 +4,8 @@ import Services from "./components/home/Services"
 import About from "./components/home/About"
 import Subscribe from "./components/home/Subscribe"
 import Portfolio from "./components/home/Portfolio"
+import TeamMember from "./components/home/TeamMember"
+import Process from "./components/home/Process"
 
 export default function Home() {
   return (
@@ -13,7 +15,8 @@ export default function Home() {
 <About/>
 <Subscribe />
 <Portfolio />
+<TeamMember />
+<Process />
 </>
-
   );
 }
