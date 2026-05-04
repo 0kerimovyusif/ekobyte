@@ -6,6 +6,8 @@ import Subscribe from "./components/home/Subscribe"
 import Portfolio from "./components/home/Portfolio"
 import TeamMember from "./components/home/TeamMember"
 import Process from "./components/home/Process"
+import Testimonials from "./components/home/Testimonials"
+import LatestPosts from "./components/home/LatestPosts";
 
 export default function Home() {
   return (
@@ -17,6 +19,8 @@ export default function Home() {
 <Portfolio />
 <TeamMember />
 <Process />
+<Testimonials />
+<LatestPosts />
 </>
   );
 }

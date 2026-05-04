@@ -118,7 +118,7 @@ export default function Footer() {
       </div>
       <div className="absolute bottom-0 left-0 w-full border-t border-white/20 bg-[#131A2A]/80 backdrop-blur-sm">
         <div className="mx-auto flex flex-col md:flex-row min-h-[62px] max-w-[1612px] items-center justify-between px-6 py-4 md:py-0 gap-4 text-center md:text-left">
-          <p className="text-[15px] lg:text-[19px] font-semibold leading-none">
+        <p className="text-[15px] lg:text-[19px] font-semibold leading-none">
             © Ekobyte 2025 | All Rights Reserved
           </p>
           <div className="flex flex-wrap justify-center items-center gap-[15px] lg:gap-[24px]">
