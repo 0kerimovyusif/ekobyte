@@ -7,6 +7,7 @@ import Portfolio from "./components/home/Portfolio"
 import TeamMember from "./components/home/TeamMember"
 import Process from "./components/home/Process"
 import Testimonials from "./components/home/Testimonials"
+import TCounter from "./components/home/TCounter";
 import LatestPosts from "./components/home/LatestPosts";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
 <TeamMember />
 <Process />
 <Testimonials />
+<TCounter />
 <LatestPosts />
 </>
   );

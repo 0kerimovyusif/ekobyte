@@ -117,7 +117,7 @@ export default function Testimonials() {
         </Swiper>
         <div className="custom-pagination flex justify-center gap-2 mt-[80px]" />
       </div>
-      <TCounter />
+      
     </section>
     
     

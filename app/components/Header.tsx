@@ -41,11 +41,11 @@ export default function Header() {
         >
           <Link href="/" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Home<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
           <Link href="/about" className="lg:px-[17px] w-full lg:w-auto">About</Link>
-          <Link href="/" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Services<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
-          <Link href="/" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Projects<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
+          <Link href="/service" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Services<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
+          <Link href="/project" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Projects<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
           <Link href="/" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Blog<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
           <Link href="/" className="lg:px-[17px] flex items-center w-full lg:w-auto justify-between lg:justify-start">Team<IoIosArrowDown className="ml-[5px] lg:block hidden" /></Link>
-          <Link href="/" className="lg:px-[17px] w-full lg:w-auto">Contact</Link>
+          <Link href="/contact" className="lg:px-[17px] w-full lg:w-auto">Contact</Link>
           
           <Link
             href="/"
