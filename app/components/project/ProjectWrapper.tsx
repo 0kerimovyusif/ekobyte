@@ -1,76 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 
-// Mock data
-const projects = [
-  {
-    id: 1,
-    title: "Tech Solutions",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-1.jpg",
-  },
-  {
-    id: 2,
-    title: "Web Design",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-2.jpg",
-  },
-  {
-    id: 3,
-    title: "Web Development",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-3.jpg",
-  },
-  {
-    id: 4,
-    title: "Idea Making",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-4.jpg",
-  },
-  {
-    id: 5,
-    title: "Blockchain Solutions",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-5.jpg",
-  },
-  {
-    id: 6,
-    title: "App Development",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-6.jpg",
-  },
-  {
-    id: 7,
-    title: "Market Analytics",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-7.jpg",
-  },
-  {
-    id: 8,
-    title: "Cloud Solutions",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-8.jpg",
-  },
-  {
-    id: 9,
-    title: "IT Solutions",
-    category: "Fummy text of the printing",
-    image: "https://themeearth.com/tf/php/ekobyte/images/project/project-9.jpg",
-  },
-];
+type NewsItem = {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  href: string;
+};
 
 const ProjectCard = ({
   title,
   category,
   image,
+  href,
 }: {
   title: string;
   category: string;
   image: string;
+  href: string;
 }) => {
   return (
     <div className="col-lg-4 col-sm-6 col-xs-12 px-[13.5px]">
@@ -80,11 +33,10 @@ const ProjectCard = ({
         whileHover="hover"
       >
         <div className="image relative overflow-hidden rounded-[20px]">
-          {/* Main Image */}
           <motion.img
             src={image}
             alt={title}
-            className="h-full w-full object-cover"
+            className="h-[490px] w-[412px] object-cover"
             variants={{
               initial: { scale: 1 },
               hover: { scale: 1.1 },
@@ -95,7 +47,6 @@ const ProjectCard = ({
             }}
           />
 
-          {/* Overlay */}
           <motion.div
             className="te-content-wrapper absolute inset-0 flex items-end bg-black/20 p-[10px]"
             variants={{
@@ -110,7 +61,6 @@ const ProjectCard = ({
             }}
             transition={{ duration: 0.1, ease: "easeOut" }}
           >
-            {/* Yellow Circle Button */}
             <motion.div
               className="btn-wrapper absolute z-20"
               variants={{
@@ -127,15 +77,16 @@ const ProjectCard = ({
               }}
               transition={{ duration: 0.55, ease: "easeOut" }}
             >
-              <Link
-                href="/project-details"
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex h-[73px] w-[73px] items-center justify-center rounded-full bg-[#e7f914] text-[24px] text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white"
               >
                 <FiArrowUpRight size={24} />
-              </Link>
+              </a>
             </motion.div>
 
-            {/* Bottom Content */}
             <div className="content relative flex w-full items-center justify-between">
               <motion.div
                 className="content-inner flex w-full origin-bottom flex-col justify-center rounded-[20px] bg-white px-[30px] py-[25px]"
@@ -152,7 +103,9 @@ const ProjectCard = ({
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <h3 className="title mb-[5px] text-[24px] font-medium leading-[1.2] text-[#131a2a]">
-                  <Link href="/project-details">{title}</Link>
+                  <a href={href} target="_blank" rel="noopener noreferrer">
+                    {title}
+                  </a>
                 </h3>
 
                 <span className="sub-title block text-[18px] text-[#335371]">
@@ -168,65 +121,109 @@ const ProjectCard = ({
 };
 
 const ProjectWrapper: React.FC = () => {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 9;
+  const totalPages = 5;
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      setLoading(true);
+
+      try {
+        const response = await axios.get(
+          `/api/news?category=technology&page=${currentPage}&max=${itemsPerPage}`
+        );
+
+        const formattedNews: NewsItem[] = response.data.articles
+          .filter((article: any) => article.image)
+          .map((article: any, index: number) => ({
+            id: `${currentPage}-${index}`,
+            title: article.title,
+            category: article.source?.name || "Technology News",
+            image: article.image,
+            href: article.url,
+          }));
+
+        setNews(formattedNews);
+      } catch (error) {
+        console.error("Xəbərlər yüklənmədi:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, [currentPage]);
+
   return (
     <div className="project-page-wrapper overflow-hidden bg-white py-[120px] pb-[80px] font-sans">
       <div className="container mx-auto max-w-[1320px] px-[15px]">
-        <div className="row mx-[-13.5px] flex flex-wrap">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              title={project.title}
-              category={project.category}
-              image={project.image}
-            />
-          ))}
-        </div>
-
-        {/* Pagination */}
-        <div className="te-basic-pagination mt-[40px] flex justify-center">
-          <ul className="flex list-none items-center gap-[12px]">
-            <li>
-              <span className="flex h-[30px] w-[30px] text-[16px] md:h-[60px] md:w-[60px] items-center justify-center rounded-full border border-[#317efe] bg-[#317efe] md:text-[24px] font-medium text-white">
-                1
-              </span>
-            </li>
-
-            {[2, 3].map((num) => (
-              <li key={num}>
-                <Link
-                  href="#"
-                  className="flex h-[30px] w-[30px] text-[16px] md:h-[60px] md:w-[60px] items-center justify-center rounded-full border border-[#dfe2e9] bg-white md:text-[24px] font-medium text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white"
-                >
-                  {num}
-                </Link>
-              </li>
+        {loading ? (
+          <div className="py-20 text-center text-[24px] font-semibold text-[#14203a]">
+            Loading news...
+          </div>
+        ) : news.length > 0 ? (
+          <div className="row mx-[-13.5px] flex flex-wrap">
+            {news.map((item) => (
+              <ProjectCard
+                key={item.id}
+                title={item.title}
+                category={item.category}
+                image={item.image}
+                href={item.href}
+              />
             ))}
+          </div>
+        ) : (
+          <div className="py-20 text-center text-[24px] font-semibold text-[#14203a]">
+            News not found.
+          </div>
+        )}
 
-            <li>
-              <span className="flex h-[30px] w-[30px] text-[16px] md:h-[60px] md:w-[60px] items-center justify-center rounded-full border border-[#dfe2e9] bg-white md:text-[24px] font-medium text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white">
-                ...
-              </span>
-            </li>
-            <li>
-              <span className="flex h-[30px] w-[30px] text-[16px] cursor-pointer md:h-[60px] md:w-[60px] items-center justify-center rounded-full border border-[#dfe2e9] bg-white md:text-[24px] font-medium text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white">
-                5
-              </span>
-            </li>
+        {!loading && news.length > 0 && (
+          <div className="te-basic-pagination mt-[40px] flex justify-center">
+            <ul className="flex list-none items-center gap-[12px]">
+              {[1, 2, 3, 4, 5].map((num) => (
+                <li key={num}>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage(num)}
+                    className={`flex h-[30px] w-[30px] items-center justify-center rounded-full border text-[16px] font-medium transition-all duration-300 md:h-[60px] md:w-[60px] md:text-[24px] ${
+                      currentPage === num
+                        ? "border-[#317efe] bg-[#317efe] text-white"
+                        : "border-[#dfe2e9] bg-white text-[#14203a] hover:bg-[#317efe] hover:text-white"
+                    }`}
+                  >
+                    {num}
+                  </button>
+                </li>
+              ))}
 
-
-            <li>
-              <Link
-                href="#"
-                className="flex h-[30px] w-[30px] text-[16px] md:h-[60px] md:w-[60px] items-center justify-center rounded-full border border-[#dfe2e9] bg-white md:text-[24px] font-medium text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white"
-              >
-                <FiArrowRight />
-              </Link>
-            </li>
-          </ul>
-        </div>
+              <li>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`flex h-[30px] w-[30px] items-center justify-center rounded-full border border-[#dfe2e9] bg-white text-[16px] font-medium text-[#14203a] transition-all duration-300 hover:bg-[#317efe] hover:text-white md:h-[60px] md:w-[60px] md:text-[24px] ${
+                    currentPage === totalPages
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                  }`}
+                >
+                  <FiArrowRight />
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default ProjectWrapper; 
+export default ProjectWrapper;
